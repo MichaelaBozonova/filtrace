@@ -7,7 +7,7 @@ from osgeo.gdalnumeric import *
 from gdalconst import *
 gdal.UseExceptions()
 
-def filtrace(hodnoty, radky, sloupce):
+def filtrace_mean (hodnoty, radky, sloupce):
     for radek in range(1, radky - 1):
         for sloupec in range(1, sloupce - 1):
             # zjisti se hodnoty aktualni zpracovavane bunky a hodnoty bunek v osmi/sousedstvi
@@ -52,7 +52,7 @@ noveHodnoty = np.zeros((radky, sloupce))
 # cykly vynechavaji okrajove radky a sloupce (zacinaji az od 1, ne 0 a konci na predposlednim radku/sloupci)
 #   - aby se pri vymezeni okoli (3x3 bunky) zpracovavanych bunek nedostal za okraj rastru
 
-noveHodnoty = filtrace(hodnoty, radky, sloupce)
+noveHodnoty = filtrace_mean(hodnoty, radky, sloupce)
 ## ulozeni vyfiltrovaneho rastru (pole noveHodnoty) do GeoTiffu
 # urceni driver podle formatu, do ktereho se bude ukladat
 driver = gdal.GetDriverByName("GTiff")
